@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#014F4F">
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/righteous"
+        android:text="MyQR Code"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_marginTop="70dp" />
+    <ImageView
+        android:id="@+id/qrCodeIllustration"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/qr_code_illustration"
+        android:contentDescription="QR Code Illustration" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/menu_bg"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/righteous"
+            android:text="Scan, Connect, Explore"
+            android:textColor="#014F4F"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+        <Button
+            android:id="@+id/btn_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:text="Go To App "
+            android:textStyle="bold"
+            android:drawableEnd="@drawable/baseline_arrow_forward_ios_24"
+            android:backgroundTint="#014F4F"
+            android:textColor="#FFFFFF"
+            android:padding="16dp" />
+    </FrameLayout>
+</RelativeLayout>
