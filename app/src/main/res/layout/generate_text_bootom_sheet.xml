@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:hint="Entrez un texte" />
+
+    <Button
+        android:id="@+id/btnGenerateQR"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Générer" />
+
+    <ImageView
+        android:id="@+id/imageViewQR"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
