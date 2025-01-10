@@ -3,30 +3,37 @@ package com.example.myqr.fragments
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import com.example.myqr.R
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
 class GenerateTextBootomSheeet: BottomSheetDialogFragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.CenteredBottomSheetDialog)
+    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.generate_text_bootom_sheet, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val editText = view.findViewById<EditText>(R.id.editText)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
+        view.post {
+            val bottomSheet = view.parent as View
+            val behavior = BottomSheetBehavior.from(bottomSheet)
+            val displayMetrics = resources.displayMetrics
+            val targetOffset = (displayMetrics.density * 200).toInt() // Convertir 200dp en pixels
+            behavior.peekHeight = targetOffset
+        }
 
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
             val text = editText.text.toString()
