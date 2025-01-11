@@ -3,27 +3,26 @@ package com.example.myqr.fragments
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.fragment.app.DialogFragment
 import com.example.myqr.R
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
-class GenerateTextBootomSheeet: BottomSheetDialogFragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+class GenerateTextBootomSheeet : DialogFragment() {
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.generate_text_bootom_sheet, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val editText = view.findViewById<EditText>(R.id.editText)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
 
@@ -45,6 +44,18 @@ class GenerateTextBootomSheeet: BottomSheetDialogFragment() {
                 }
             }
         }
+    }
 
+    override fun onStart() {
+        super.onStart()
+
+        dialog?.window?.apply {
+            setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            setGravity(android.view.Gravity.CENTER)
+            setBackgroundDrawableResource(android.R.color.transparent)
+        }
     }
 }
