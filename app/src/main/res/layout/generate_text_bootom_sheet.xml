@@ -1,9 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#014F4F"
+    android:background="@drawable/champtext_bg"
     android:gravity="center">
 
     <EditText
@@ -16,7 +17,8 @@
         android:textColorHint="@color/white"
         android:textStyle="bold"
         android:fontFamily="@font/righteous"
-        android:background="@drawable/edittext_bg" />
+        android:background="@drawable/edittext_bg"
+        android:textColor="@color/white"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnGenerateQR"
@@ -30,8 +32,12 @@
         android:textStyle="bold"
         android:layout_marginTop="15dp"/>
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageViewQR"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="15dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/bg_qr"/>
+
 </LinearLayout>
