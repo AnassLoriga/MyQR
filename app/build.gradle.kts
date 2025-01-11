@@ -43,6 +43,7 @@ dependencies {
     implementation("androidx.camera:camera-view:${camerax_version}")
     implementation ("com.google.zxing:zxing-parent:3.5.3")
     implementation(libs.androidx.core.ktx)
+    implementation("com.google.zxing:core:3.5.2")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
