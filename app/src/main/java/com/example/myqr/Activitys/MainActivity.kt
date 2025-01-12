@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val generate = findViewById<LinearLayout>(R.id.generate)
+        val scan = findViewById<LinearLayout>(R.id.scan)
 
         generate.setOnClickListener {
             supportFragmentManager.beginTransaction()
@@ -23,6 +24,12 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame,ScanFragment())
             .commit()
+
+        scan.setOnClickListener{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frame,ScanFragment())
+                .commit()
+        }
     }
 
 }

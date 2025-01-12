@@ -37,11 +37,8 @@ android {
 
 dependencies {
     val camerax_version = "1.5.0-alpha03"
-    implementation("androidx.camera:camera-core:${camerax_version}")
-    implementation("androidx.camera:camera-camera2:${camerax_version}")
-    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
-    implementation("androidx.camera:camera-view:${camerax_version}")
     implementation ("com.google.zxing:zxing-parent:3.5.3")
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation(libs.androidx.core.ktx)
     implementation("com.google.zxing:core:3.5.2")
     implementation(libs.androidx.appcompat)
