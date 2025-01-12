@@ -1,0 +1,83 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/linearDialo"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:padding="16dp"
+android:background="#014F4F"
+android:gravity="center">
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/OuvrirGoogleMaps"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_bg2"
+        android:fontFamily="@font/righteous"
+        android:textSize="25dp"
+        android:text="Ouvrir google maps"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"/>
+
+
+<EditText
+    android:id="@+id/editText"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_marginTop="20dp"
+    android:gravity="center"
+    android:hint="Coller votre position que tu doi copier"
+    android:textColorHint="@color/white"
+    android:textStyle="bold"
+    android:inputType="text"
+    android:visibility="gone"
+    android:fontFamily="@font/righteous"
+    android:background="@drawable/edittext_bg" />
+
+<androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/btnGenerateQR"
+    android:layout_width="200dp"
+    android:layout_height="60dp"
+    android:background="@drawable/btn_bg2"
+    android:fontFamily="@font/righteous"
+    android:textSize="25dp"
+    android:text="To QR"
+    android:visibility="gone"
+    android:textColor="@color/white"
+    android:textStyle="bold"
+    android:layout_marginTop="15dp"/>
+
+<ImageView
+    android:id="@+id/imageViewQR"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:visibility="gone"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:orientation="horizontal"
+    android:gravity="center">
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAnuller"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_bg2"
+        android:fontFamily="@font/righteous"
+        android:textSize="25dp"
+        android:text="Annuler"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnEnregistrer"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_bg2"
+        android:fontFamily="@font/righteous"
+        android:textSize="25dp"
+        android:text="Enregistrer"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="gone" />
+</LinearLayout>
+</LinearLayout>
