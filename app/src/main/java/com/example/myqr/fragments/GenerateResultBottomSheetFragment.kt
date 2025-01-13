@@ -1,12 +1,16 @@
 package com.example.myqr.fragments
+import android.content.Context
 import android.content.Intent
 import android.net.*
+import android.net.wifi.WifiConfiguration
+import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import com.example.myqr.R
@@ -40,9 +44,31 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                 ssidTextView.text = "SSID: ${wifiDetails["S"] ?: "Not found"}"
                 passwordTextView.text = "Password: ${wifiDetails["P"] ?: "Not found"}"
                 actionButton.text = "Connect to Wi-Fi"
-                actionButton.setOnClickListener {
-                    // Blast lwifi
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    actionButton.setOnClickListener {
+                        val ssid = wifiDetails["S"] ?: return@setOnClickListener
+                        val password = wifiDetails["P"] ?: ""
+
+                        val wifiManager = requireContext().applicationContext.getSystemService(
+                            Context.WIFI_SERVICE) as WifiManager
+                        val wifiConfig = WifiConfiguration().apply {
+                            SSID = "\"$ssid\""
+                            preSharedKey = "\"$password\""
+                        }
+
+                        val netId = wifiManager.addNetwork(wifiConfig)
+                        if (netId != -1) {
+                            wifiManager.disconnect()
+                            wifiManager.enableNetwork(netId, true)
+                            wifiManager.reconnect()
+                        } else {
+                            Toast.makeText(requireContext(), "Failed to configure Wi-Fi", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Wi-Fi connection requires API 29 or higher", Toast.LENGTH_SHORT).show()
                 }
+
             }
             scannedResult.startsWith("https", ignoreCase = true) -> {
                 scanTypeTextView.text = "Link : "
