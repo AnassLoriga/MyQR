@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -36,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.play.services.maps)
     val camerax_version = "1.5.0-alpha03"
     implementation ("com.google.zxing:zxing-parent:3.5.3")
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")

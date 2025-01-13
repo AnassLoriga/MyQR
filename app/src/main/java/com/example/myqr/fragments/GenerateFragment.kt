@@ -1,5 +1,6 @@
 package com.example.myqr.fragments
 
+import MapsFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +16,26 @@ class GenerateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val link = view.findViewById<Button>(R.id.link)
+        val contact = view.findViewById<Button>(R.id.Contact)
+        val wifi = view.findViewById<Button>(R.id.Wifi)
+        val location = view.findViewById<Button>(R.id.Location)
         link.setOnClickListener {
-            val bottomSheetFragment = GenerateTextBootomSheeet()
+            val bottomSheetFragment = GenerateDialogLink()
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
         }
+        contact.setOnClickListener {
+            val bottomSheetFragment = GenerateDialogContact()
+            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+        }
+        wifi.setOnClickListener {
+            val bottomSheetFragment = GenerateDialogWifi()
+            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+        }
+        location.setOnClickListener {
+            val bottomSheetFragment = MapsFragment()
+            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+        }
+
+
     }
 }
