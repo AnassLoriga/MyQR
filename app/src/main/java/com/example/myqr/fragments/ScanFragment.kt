@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.myqr.R
 import com.journeyapps.barcodescanner.BarcodeCallback
@@ -72,7 +71,7 @@ class ScanFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        hasScanned = false // Reset the flag when resuming the fragment
+        hasScanned = false
         barcodeScanner.resume()
     }
 

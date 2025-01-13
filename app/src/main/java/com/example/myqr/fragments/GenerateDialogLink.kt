@@ -27,7 +27,7 @@ class GenerateDialogLink : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val editText = view.findViewById<EditText>(R.id.editText)
-        editText.inputType = InputType.TYPE_CLASS_PHONE
+        editText.inputType = InputType.TYPE_CLASS_TEXT
         editText.hint = "Add Your Link"
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
         val enregistrer = view.findViewById<Button>(R.id.btnEnregistrer)

@@ -39,7 +39,6 @@
             android:clipToOutline="true" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Footer -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
