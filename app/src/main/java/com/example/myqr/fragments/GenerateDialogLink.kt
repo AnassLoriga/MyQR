@@ -11,9 +11,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
+import com.example.myqr.Data.Historique
+import com.example.myqr.Data.TypeHistorique
 import com.example.myqr.Function.hideKeyboard
 import com.example.myqr.Function.saveQRCodeToGallery
 import com.example.myqr.R
+import com.example.myqr.Service.HistoriqueService
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
@@ -50,6 +53,10 @@ class GenerateDialogLink : DialogFragment() {
                         }
                     }
                     imageViewQR.setImageBitmap(bitmap)
+                    HistoriqueService.addHistorique(
+                        Historique(bitmap,
+                            TypeHistorique.GENERER,text)
+                    )
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

@@ -12,9 +12,9 @@ import java.io.OutputStream
 
 fun saveQRCodeToGallery(bitmap: Bitmap, fileName: String, context: Context) {
     val contentValues = ContentValues().apply {
-        put(MediaStore.MediaColumns.DISPLAY_NAME, "$fileName.png") // Nom du fichier
-        put(MediaStore.MediaColumns.MIME_TYPE, "image/png") // Type de fichier
-        put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/MyQR") // Dossier dans la galerie
+        put(MediaStore.MediaColumns.DISPLAY_NAME, "$fileName.png")
+        put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+        put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/MyQR")
     }
 
     val resolver = context.contentResolver

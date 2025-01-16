@@ -40,9 +40,9 @@ dependencies {
     implementation(libs.play.services.maps)
     val camerax_version = "1.5.0-alpha03"
     implementation ("com.google.zxing:zxing-parent:3.5.3")
-    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation(libs.androidx.core.ktx)
     implementation("com.google.zxing:core:3.5.2")
+    implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)

@@ -12,9 +12,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.myqr.Data.Historique
+import com.example.myqr.Data.TypeHistorique
 import com.example.myqr.Function.hideKeyboard
 import com.example.myqr.Function.saveQRCodeToGallery
 import com.example.myqr.R
+import com.example.myqr.Service.HistoriqueService
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
@@ -35,7 +38,7 @@ class GenerateDialogContact : DialogFragment() {
 
 
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
-            val simNumber = editTextSimNumber.text.toString()
+            val simNumber = "Tel ${editTextSimNumber.text}"
             hideKeyboard(requireContext(),view)
             if (simNumber.isNotEmpty()) {
                     enregistrer.visibility=View.VISIBLE
@@ -50,6 +53,10 @@ class GenerateDialogContact : DialogFragment() {
                         }
                     }
                     imageViewQR.setImageBitmap(bitmap)
+                HistoriqueService.addHistorique(
+                    Historique(bitmap,
+                        TypeHistorique.GENERER,simNumber)
+                )
             }else{
                 Toast.makeText(requireContext(),"vous devez remplir le champs",Toast.LENGTH_LONG).show()
                 return@setOnClickListener
