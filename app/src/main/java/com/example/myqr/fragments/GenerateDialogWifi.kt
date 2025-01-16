@@ -11,9 +11,12 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.myqr.Data.Historique
+import com.example.myqr.Data.TypeHistorique
 import com.example.myqr.Function.hideKeyboard
 import com.example.myqr.Function.saveQRCodeToGallery
 import com.example.myqr.R
+import com.example.myqr.Service.HistoriqueService
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
@@ -53,6 +56,7 @@ class GenerateDialogWifi : DialogFragment() {
                         }
                     }
                     imageViewQR.setImageBitmap(bitmap)
+                    HistoriqueService.addHistorique(Historique(bitmap,TypeHistorique.GENERER,wifiString))
             }else {
                 Toast.makeText(requireContext(), "vous devez remplir les champs", Toast.LENGTH_LONG)
                     .show()

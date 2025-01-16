@@ -1,13 +1,19 @@
 package com.example.myqr.fragments
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import com.example.myqr.Data.Historique
+import com.example.myqr.Data.TypeHistorique
 import com.example.myqr.R
+import com.example.myqr.Service.HistoriqueService
+import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.BarcodeView
 import com.journeyapps.barcodescanner.camera.CameraSettings
@@ -40,6 +46,12 @@ class ScanFragment : Fragment() {
                     hasScanned = true
                     val scannedText = result.text
                     if (!scannedText.isNullOrEmpty()) {
+                        val barcodeEncoder = BarcodeEncoder()
+                        val bitmap: Bitmap = barcodeEncoder.encodeBitmap(scannedText, BarcodeFormat.QR_CODE, 400, 400)
+                        HistoriqueService.addHistorique(
+                            Historique(bitmap,
+                                TypeHistorique.SCANNER,scannedText)
+                        )
                         val bottomSheet = GenerateResultBottomSheetFragment()
 
                         val args = Bundle()
