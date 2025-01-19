@@ -1,18 +1,21 @@
 package com.example.myqr.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myqr.Data.Historique
 import com.example.myqr.Data.TypeHistorique
 import com.example.myqr.R
+import com.example.myqr.fragments.GenerateResultBottomSheetFragment
 
-class HistoriqueAdapter(
-    private val historiques: List<Historique>
-) : RecyclerView.Adapter<HistoriqueAdapter.HistoriqueViewHolder>() {
+class HistoriqueAdapter(val historiques: List<Historique>,
+     val supportFragmentmanager:FragmentManager
+    ) : RecyclerView.Adapter<HistoriqueAdapter.HistoriqueViewHolder>() {
 
     class HistoriqueViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageQR: ImageView = itemView.findViewById(R.id.imageQR)
@@ -36,7 +39,11 @@ class HistoriqueAdapter(
         holder.imageQR.setImageBitmap(historique.imageQR)
         holder.contenu.text = historique.contenu
         holder.itemView.setOnClickListener {
-
+            val bottomSheet = GenerateResultBottomSheetFragment()
+            val args = Bundle()
+            args.putString("SCANNED_RESULT", historique.contenu)
+            bottomSheet.arguments = args
+            bottomSheet.show(supportFragmentmanager, "GenerateResultBottomSheetFragment")
         }
     }
 

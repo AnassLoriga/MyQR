@@ -2,6 +2,7 @@ package com.example.myqr.Service
 
 import android.widget.Toast
 import com.example.myqr.Data.Historique
+import com.example.myqr.Data.TypeHistorique
 
 object HistoriqueService{
     val listHistorique = mutableListOf<Historique>()
