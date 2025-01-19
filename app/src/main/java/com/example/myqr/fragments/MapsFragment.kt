@@ -33,12 +33,9 @@ class MapsFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val editText = view.findViewById<EditText>(R.id.editText)
         val btnQR = view.findViewById<Button>(R.id.btnGenerateQR)
-        val btnAnuller = view.findViewById<Button>(R.id.btnAnuller)
         val btnenregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
-        btnAnuller.setOnClickListener {
-            dismiss()
-        }
+
 
         val btnOpenMaps: Button = view.findViewById(R.id.OuvrirGoogleMaps)
 

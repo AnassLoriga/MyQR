@@ -33,7 +33,6 @@ class GenerateDialogContact : DialogFragment() {
         val editTextSimNumber = view.findViewById<EditText>(R.id.editText)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
         val enregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
-        val anuller = view.findViewById<Button>(R.id.btnAnuller)
         val linearDialog = view.findViewById<LinearLayout>(R.id.linearDialo)
 
 
@@ -61,9 +60,6 @@ class GenerateDialogContact : DialogFragment() {
                 Toast.makeText(requireContext(),"vous devez remplir le champs",Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-        }
-        anuller.setOnClickListener {
-            dismiss()
         }
         enregistrer.setOnClickListener {
             saveQRCodeToGallery(bitmap, "MyQRCode", requireContext())

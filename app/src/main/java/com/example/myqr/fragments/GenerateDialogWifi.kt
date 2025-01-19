@@ -34,7 +34,6 @@ class GenerateDialogWifi : DialogFragment() {
         val editTextAuthType = view.findViewById<EditText>(R.id.editTextAuthType)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
         val enregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
-        val anuller = view.findViewById<Button>(R.id.btnAnuller)
 
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
             imageViewQR.visibility = View.VISIBLE
@@ -62,9 +61,6 @@ class GenerateDialogWifi : DialogFragment() {
                     .show()
                 return@setOnClickListener
             }
-        }
-        anuller.setOnClickListener {
-            dismiss()
         }
         enregistrer.setOnClickListener {
             saveQRCodeToGallery(bitmap, editTextSSID.text.toString(), requireContext())

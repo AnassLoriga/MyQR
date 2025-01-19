@@ -21,6 +21,13 @@
         android:fontFamily="@font/righteous"
         android:background="@drawable/edittext_bg" />
 
+
+
+    <ImageView
+        android:id="@+id/imageViewQR"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:visibility="gone"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnGenerateQR"
         android:layout_width="200dp"
@@ -32,38 +39,16 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginTop="15dp"/>
-
-    <ImageView
-        android:id="@+id/imageViewQR"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:visibility="gone"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        android:gravity="center">
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAnuller"
+        android:id="@+id/btnEnregistrer"
         android:layout_width="190dp"
         android:layout_height="60dp"
         android:background="@drawable/btn_bg2"
         android:fontFamily="@font/righteous"
         android:textSize="25dp"
-        android:text="Annuler"
+        android:text="Enregistrer"
         android:textColor="@color/white"
-        android:textStyle="bold" />
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnEnregistrer"
-            android:layout_width="190dp"
-            android:layout_height="60dp"
-            android:background="@drawable/btn_bg2"
-            android:fontFamily="@font/righteous"
-            android:textSize="25dp"
-            android:text="Enregistrer"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:visibility="gone" />
-</LinearLayout>
+        android:textStyle="bold"
+        android:visibility="gone" />
+
 </LinearLayout>

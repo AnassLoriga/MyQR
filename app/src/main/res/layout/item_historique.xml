@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="#008181"
+    app:cardCornerRadius="15dp"
+    android:layout_marginRight="13dp"
+    android:layout_marginLeft="13dp"
+    android:layout_marginTop="13dp"
+    android:outlineSpotShadowColor="@color/black">
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="20dp"
-    android:paddingLeft="20dp"
->
+    android:layout_margin="20dp">
 
     <ImageView
         android:id="@+id/imageQR"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="8dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,14 +37,15 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:layout_marginBottom="10dp"
-            android:text="Type historique" />
+            android:text="Type historique"/>
 
         <TextView
             android:id="@+id/contenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="Contenu de l'historique" />
+            android:text="Contenu de l'historique"/>
 
     </LinearLayout>
 </LinearLayout>
+</androidx.cardview.widget.CardView>
