@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.myqr.R
 
@@ -15,10 +16,10 @@ class GenerateFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val link = view.findViewById<Button>(R.id.link)
-        val contact = view.findViewById<Button>(R.id.Contact)
-        val wifi = view.findViewById<Button>(R.id.Wifi)
-        val location = view.findViewById<Button>(R.id.Location)
+        val link = view.findViewById<LinearLayout>(R.id.link)
+        val contact = view.findViewById<LinearLayout>(R.id.contact)
+        val wifi = view.findViewById<LinearLayout>(R.id.wifi)
+        val location = view.findViewById<LinearLayout>(R.id.location)
         link.setOnClickListener {
             val bottomSheetFragment = GenerateDialogLink()
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
