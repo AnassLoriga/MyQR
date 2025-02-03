@@ -160,7 +160,7 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
         val clipboardManager = requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
         val clipData = android.content.ClipData.newPlainText("Scanned Result", text)
         clipboardManager.setPrimaryClip(clipData)
-        android.widget.Toast.makeText(requireContext(), "Text copied to clipboard", android.widget.Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Text copied to clipboard", Toast.LENGTH_SHORT).show()
     }
 
 

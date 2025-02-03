@@ -21,7 +21,8 @@
             android:background="@drawable/toggle_background"
             android:padding="4dp"
             android:gravity="center_horizontal"
-            android:layoutDirection="locale">
+            android:layoutDirection="locale"
+            android:backgroundTint="#008181">
                 <TextView
                     android:id="@+id/all"
                     android:layout_width="100dp"
