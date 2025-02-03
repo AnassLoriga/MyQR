@@ -37,14 +37,14 @@ class GenerateDialogWifi : DialogFragment() {
         val anuller = view.findViewById<Button>(R.id.btnAnuller)
 
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
-            imageViewQR.visibility = View.VISIBLE
-            enregistrer.visibility =View.VISIBLE
             hideKeyboard(requireContext(),view)
             val ssid = editTextSSID.text.toString()
             val password = editTextPassword.text.toString()
             val authType = editTextAuthType.text.toString()
 
             if (ssid.isNotEmpty() && authType.isNotEmpty()) {
+                imageViewQR.visibility = View.VISIBLE
+                enregistrer.visibility =View.VISIBLE
                     val wifiString = "WIFI:T:$authType;S:$ssid;P:$password;;"
 
                     val writer = QRCodeWriter()

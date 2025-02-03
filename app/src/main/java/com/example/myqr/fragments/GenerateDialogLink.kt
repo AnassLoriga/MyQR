@@ -38,11 +38,11 @@ class GenerateDialogLink : DialogFragment() {
 
 
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
-            imageViewQR.visibility = View.VISIBLE
-            enregistrer.visibility =View.VISIBLE
             hideKeyboard(requireContext(),view)
             val text = editText.text.toString()
             if (text.isNotEmpty()) {
+                imageViewQR.visibility = View.VISIBLE
+                enregistrer.visibility =View.VISIBLE
                 try {
                     val writer = QRCodeWriter()
                     val bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 512, 512)
