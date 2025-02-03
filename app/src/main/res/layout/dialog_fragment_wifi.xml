@@ -17,6 +17,7 @@
         android:gravity="center"
         android:hint="WiFi SSID"
         android:inputType="text"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textStyle="bold" />
 
@@ -30,6 +31,7 @@
         android:gravity="center"
         android:hint="WiFi Password"
         android:inputType="textPassword"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textStyle="bold" />
 
@@ -43,6 +45,7 @@
         android:gravity="center"
         android:hint="Authentication Type (WPA/WEP/nopass)"
         android:inputType="text"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textStyle="bold" />
 
