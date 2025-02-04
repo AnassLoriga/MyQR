@@ -2,7 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    id("org.jetbrains.dokka") version "2.0.0"
 }
+
 
 android {
     namespace = "com.example.myqr"
@@ -18,6 +20,9 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    subprojects{
+        apply(plugin = "org.jetbrains.dokka")
+    }
     buildTypes {
         release {
             isMinifyEnabled = false

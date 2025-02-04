@@ -40,9 +40,8 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
         val scannedResult = arguments?.getString("SCANNED_RESULT") ?: "No result"
 
         when {
-            // -----------------------------------------------------------------
+
             // wifi qr
-            // -----------------------------------------------------------------
             scannedResult.startsWith("WIFI:", ignoreCase = true) -> {
                 val wifiDetails = parseWiFiDetails(scannedResult)
                 scanTypeTextView.text = "WiFi : "
@@ -55,7 +54,6 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                 actionButton.text = "Connect to Wi-Fi"
 
                 actionButton.setOnClickListener {
-                    // If Wi-Fi details are valid, attempt to connect
                     if (wifiDetails.isNotEmpty()) {
                         connectToWifi(wifiDetails)
                     } else {
@@ -68,10 +66,9 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                 }
             }
 
-            // -----------------------------------------------------------------
             // lien
-            // -----------------------------------------------------------------
-            scannedResult.startsWith("https", ignoreCase = true) -> {
+
+            scannedResult.startsWith("http", ignoreCase = true) -> {
                 scanTypeTextView.text = "Link : "
                 resultTextView.text = scannedResult
                 ssidTextView.visibility = View.GONE
@@ -82,9 +79,7 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                 }
             }
 
-            // -----------------------------------------------------------------
             // tele
-            // -----------------------------------------------------------------
             scannedResult.startsWith("tel:", ignoreCase = true) -> {
                 scanTypeTextView.text = "Phone : "
                 resultTextView.text = scannedResult.removePrefix("tel:")
@@ -95,10 +90,8 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                     openPhoneDialer(scannedResult)
                 }
             }
-
-            // -----------------------------------------------------------------
             // localisation
-            // -----------------------------------------------------------------
+
             scannedResult.startsWith("geo:", ignoreCase = true) -> {
                 scanTypeTextView.text = "Location : "
                 resultTextView.text = scannedResult
@@ -110,9 +103,7 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                 }
             }
 
-            // -----------------------------------------------------------------
             // text
-            // -----------------------------------------------------------------
             else -> {
                 scanTypeTextView.text = "Text : "
                 resultTextView.text = scannedResult
@@ -140,7 +131,6 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
             for (param in params) {
                 val keyValue = param.split(":", limit = 2)
                 if (keyValue.size == 2) {
-                    // Example: S:MyNetwork -> keyValue[0] = "S", keyValue[1] = "MyNetwork"
                     details[keyValue[0].uppercase()] = keyValue[1]
                 }
             }
@@ -153,7 +143,7 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
     private fun connectToWifi(wifiDetails: Map<String, String>) {
         val ssid = wifiDetails["S"] ?: return
         val password = wifiDetails["P"] ?: ""
-        val authType = wifiDetails["T"]?.uppercase() ?: "WPA"  // e.g., "WPA", "WEP", "NOPASS"
+        val authType = wifiDetails["T"]?.uppercase() ?: "WPA"
 
         val wifiManager = requireContext().applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 

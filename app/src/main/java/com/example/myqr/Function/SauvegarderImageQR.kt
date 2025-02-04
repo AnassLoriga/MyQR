@@ -5,16 +5,11 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import com.example.myqr.Data.TypeHistorique
 import com.example.myqr.R
-import com.example.myqr.Service.HistoriqueService
 import java.io.OutputStream
 
 fun saveQRCodeToGallery(bitmap: Bitmap, fileName: String, context: Context) {

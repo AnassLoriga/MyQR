@@ -29,6 +29,12 @@ import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.BarcodeView
 import com.journeyapps.barcodescanner.camera.CameraSettings
 
+/**
+ * Fragment responsable de scan de codes QR a l'aide de Zxing
+ *
+ * Class ScanFragment : est une class qui contient un ensemble des fonctions qui a permet de scaner des codes QR ou bien gerer les parmaetres des camera
+ *
+ */
 class ScanFragment : Fragment() {
     private lateinit var barcodeScanner: BarcodeView
     private lateinit var btnFlashlight: ImageButton
@@ -49,14 +55,17 @@ class ScanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //initialisation des vues
         barcodeScanner = view.findViewById(R.id.barcode_scanner)
         btnFlashlight = view.findViewById(R.id.btn_flashlight)
         btnGallery = view.findViewById(R.id.btn_galery)
 
+        //Gestion les parametres de camera
         val cameraSettings = CameraSettings()
         cameraSettings.isAutoFocusEnabled = true
         barcodeScanner.cameraSettings = cameraSettings
 
+        // Décode Continu Les Codes QR
         barcodeScanner.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult) {
                 if (!hasScanned) {
@@ -67,20 +76,23 @@ class ScanFragment : Fragment() {
             override fun possibleResultPoints(resultPoints: List<com.google.zxing.ResultPoint>) {}
         })
 
+        //Gestion le flash de camera
         btnFlashlight.setOnClickListener {
             toggleFlashlight()
         }
 
+        //Ouverture de la galerie d'images
         btnGallery.setOnClickListener {
             openGallery()
         }
     }
 
+    //Fonction pour ouvrir le galerie d'images pour selectionner une image contenant un QR code
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
-
+//Fonction pour gerer Les resultats de l'image scanned
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
