@@ -2,6 +2,7 @@ package com.example.myqr.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
@@ -11,6 +12,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -45,9 +47,16 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
         val ssidTextView: TextView = view.findViewById(R.id.ssid)
         val passwordTextView: TextView = view.findViewById(R.id.password)
         val actionButton: AppCompatButton = view.findViewById(R.id.action_button)
+        val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
 
         // Récupération du résultat scanné
         scannedResult = arguments?.getString("SCANNED_RESULT") ?: "No result"
+        val byteArray = arguments?.getByteArray("bitmap")
+        if(byteArray != null){
+            val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+            imageViewQR.visibility =View.VISIBLE
+            imageViewQR.setImageBitmap(bitmap)
+        }
 
         when {
 
