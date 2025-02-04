@@ -36,7 +36,7 @@ class HistoriqueAdapter(val historiques: List<Historique>,
             holder.typeHistorique.text = "Code Scanner"
         }
 
-        holder.imageQR.setImageBitmap(historique.imageQR)
+        holder.imageQR.setImageResource(historique.logo)
         holder.contenu.text = historique.contenu
         holder.itemView.setOnClickListener {
             val bottomSheet = GenerateResultBottomSheetFragment()
