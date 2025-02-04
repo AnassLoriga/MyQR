@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import com.example.myqr.Data.Historique
 import com.example.myqr.Data.TypeHistorique
@@ -45,8 +47,8 @@ class GenerateDialogLink : DialogFragment() {
         editText.inputType = InputType.TYPE_CLASS_TEXT
         editText.hint = "Add Your Link"
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
-        val enregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
-        val partager = view.findViewById<Button>(R.id.btnPartager)
+        val enregistrer = view.findViewById<ImageButton>(R.id.btnEnregistrer)
+        val partager = view.findViewById<ImageButton>(R.id.btnPartager)
 
         // Génère le QR Code à partir du texte saisi
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
@@ -56,6 +58,7 @@ class GenerateDialogLink : DialogFragment() {
                 imageViewQR.visibility = View.VISIBLE
                 enregistrer.visibility =View.VISIBLE
                 partager.visibility = View.VISIBLE
+
                 try {
                     val writer = QRCodeWriter()
                     val bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 512, 512)
