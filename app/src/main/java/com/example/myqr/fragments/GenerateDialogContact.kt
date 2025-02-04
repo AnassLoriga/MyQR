@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.DialogFragment
 import com.example.myqr.Data.Historique
 import com.example.myqr.Data.TypeHistorique
@@ -54,9 +56,9 @@ class GenerateDialogContact : DialogFragment() {
 
         val editTextSimNumber = view.findViewById<EditText>(R.id.editText)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
-        val enregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
+        val enregistrer = view.findViewById<ImageButton>(R.id.btnEnregistrer)
         val linearDialog = view.findViewById<LinearLayout>(R.id.linearDialo)
-        val partager = view.findViewById<Button>(R.id.btnPartager)
+        val partager = view.findViewById<ImageButton>(R.id.btnPartager)
 
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
             simNumber = "Tel ${editTextSimNumber.text}"
