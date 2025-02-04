@@ -1,11 +1,16 @@
 package com.example.myqr.fragments
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.*
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +18,17 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.FileProvider
 import com.example.myqr.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.qrcode.QRCodeWriter
+import java.io.File
+import java.io.FileOutputStream
 
 class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
+    lateinit var scannedResult :String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -33,8 +44,9 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
         val ssidTextView: TextView = view.findViewById(R.id.ssid)
         val passwordTextView: TextView = view.findViewById(R.id.password)
         val actionButton: AppCompatButton = view.findViewById(R.id.action_button)
+        val PartagerButton: AppCompatButton = view.findViewById(R.id.partager_button)
 
-        val scannedResult = arguments?.getString("SCANNED_RESULT") ?: "No result"
+        scannedResult = arguments?.getString("SCANNED_RESULT") ?: "No result"
 
         when {
             scannedResult.startsWith("wifi", ignoreCase = true) -> {
@@ -112,6 +124,9 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
             }
 
         }
+        PartagerButton.setOnClickListener {
+            shareBitmapAndText(scannedResult)
+        }
 
 
         val parentView = view.parent as View
@@ -162,6 +177,48 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
         clipboardManager.setPrimaryClip(clipData)
         Toast.makeText(requireContext(), "Text copied to clipboard", Toast.LENGTH_SHORT).show()
     }
+    private fun shareBitmapAndText(text: String) {
+        val writer = QRCodeWriter()
+        val bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 512, 512)
+        val bitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888)
+        for (x in 0 until 512) {
+            for (y in 0 until 512) {
+                bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
+            }
+        }
+        val imageUri: Uri? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val contentValues = ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, "shared_image.jpg")
+                put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+                put(MediaStore.MediaColumns.RELATIVE_PATH, "DCIM/SharedImages")
+            }
+            val uri = requireContext().contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            uri?.let {
+                requireContext().contentResolver.openOutputStream(it)?.use { outputStream ->
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                }
+            }
+            uri
+        } else {
+            val imagesDir = requireContext().externalCacheDir
+            val image = File(imagesDir, "shared_image.jpg")
+            image.outputStream().use {
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+            }
+            Uri.fromFile(image)
+        }
+
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, text)
+            putExtra(Intent.EXTRA_STREAM, imageUri)
+            type = "image/jpeg"
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+
+        startActivity(Intent.createChooser(shareIntent, "Partager via"))
+    }
+
 
 
 }
