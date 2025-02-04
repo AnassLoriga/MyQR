@@ -24,9 +24,18 @@ import com.example.myqr.Service.HistoriqueService
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
+/**
+ * Un [DialogFragment] qui génère un code QR basé sur une localisation géographique.
+ * Il permet à l'utilisateur d'ouvrir Google Maps, de saisir des coordonnées et de créer un code QR pour le partager ou le sauvegarder.
+ */
 class MapsFragment : DialogFragment() {
+
+    /** Bitmap représentant le code QR généré. */
     lateinit var bitmap: Bitmap
+
+    /** Le contenu textuel encodé dans le code QR. */
     lateinit var text: String
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
@@ -38,10 +47,12 @@ class MapsFragment : DialogFragment() {
         val btnenregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
         val partager = view.findViewById<Button>(R.id.btnPartager)
-
-
         val btnOpenMaps: Button = view.findViewById(R.id.OuvrirGoogleMaps)
 
+        /**
+         * Ouvre Google Maps pour sélectionner une localisation.
+         * Rend les champs de saisie visibles pour entrer des coordonnées.
+         */
         btnOpenMaps.setOnClickListener {
             val gmmIntentUri = Uri.parse("geo:0,0?q=")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
@@ -51,10 +62,15 @@ class MapsFragment : DialogFragment() {
             btnQR.visibility = View.VISIBLE
             partager.visibility = View.VISIBLE
         }
+
+        /**
+         * Génère un code QR à partir des coordonnées de localisation fournies.
+         * Ajoute le code QR généré au service d'historique.
+         */
         btnQR.setOnClickListener {
             imageViewQR.visibility = View.VISIBLE
-            btnenregistrer.visibility =View.VISIBLE
-            hideKeyboard(requireContext(),view)
+            btnenregistrer.visibility = View.VISIBLE
+            hideKeyboard(requireContext(), view)
             if (editText.text?.isNotEmpty() == true) {
                 val Location = editText.text.toString().trim()
                 text = "geo URIs ($Location)"
@@ -68,30 +84,32 @@ class MapsFragment : DialogFragment() {
                     }
                 }
                 imageViewQR.setImageBitmap(bitmap)
-                HistoriqueService.addHistorique(
-                    Historique(bitmap,
-                        TypeHistorique.GENERER,text)
-                )
-            }else {
-                Toast.makeText(requireContext(), "vous devez remplir les champs", Toast.LENGTH_LONG)
-                    .show()
+                HistoriqueService.addHistorique(Historique(bitmap, TypeHistorique.GENERER, text))
+            } else {
+                Toast.makeText(requireContext(), "vous devez remplir les champs", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
         }
+
+        /**
+         * Enregistre le code QR généré dans la galerie.
+         */
         btnenregistrer.setOnClickListener {
-            saveQRCodeToGallery(bitmap,"geoLocalisation", requireContext())
+            saveQRCodeToGallery(bitmap, "geoLocalisation", requireContext())
         }
+
+        /**
+         * Partage le code QR ainsi que son contenu textuel.
+         */
         partager.setOnClickListener {
-            shareBitmapAndText(requireContext(),text)
+            shareBitmapAndText(requireContext(), text)
         }
     }
+
     override fun onStart() {
         super.onStart()
         dialog?.window?.apply {
-            setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             setGravity(android.view.Gravity.CENTER)
             setBackgroundDrawableResource(android.R.color.transparent)
         }

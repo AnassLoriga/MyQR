@@ -21,15 +21,26 @@ import com.example.myqr.Service.HistoriqueService
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
+/**
+ * Fragment pour générer un QR Code contenant les informations Wi-Fi.
+ */
 class GenerateDialogWifi : DialogFragment() {
     lateinit var bitmap: Bitmap
-    lateinit var wifiString:String
+    lateinit var wifiString: String
+
+    /**
+     * Crée la vue du fragment.
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_fragment_wifi, container, false)
     }
 
+    /**
+     * Initialise les vues et configure les actions des boutons.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val editTextSSID = view.findViewById<EditText>(R.id.editTextSSID)
         val editTextPassword = view.findViewById<EditText>(R.id.editTextPassword)
         val editTextAuthType = view.findViewById<EditText>(R.id.editTextAuthType)
@@ -38,7 +49,7 @@ class GenerateDialogWifi : DialogFragment() {
         val partager = view.findViewById<Button>(R.id.btnPartager)
 
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
-            hideKeyboard(requireContext(),view)
+            hideKeyboard(requireContext(), view)
 
             val ssid = editTextSSID.text.toString()
             val password = editTextPassword.text.toString()
@@ -46,34 +57,39 @@ class GenerateDialogWifi : DialogFragment() {
 
             if (ssid.isNotEmpty() && authType.isNotEmpty()) {
                 imageViewQR.visibility = View.VISIBLE
-                enregistrer.visibility =View.VISIBLE
+                enregistrer.visibility = View.VISIBLE
                 partager.visibility = View.VISIBLE
-                    wifiString = "WIFI:T:$authType;S:$ssid;P:$password;;"
 
-                    val writer = QRCodeWriter()
-                    val bitMatrix = writer.encode(wifiString, BarcodeFormat.QR_CODE, 512, 512)
-                    bitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.RGB_565)
-                    for (x in 0 until 512) {
-                        for (y in 0 until 512) {
-                            bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
-                        }
+                wifiString = "WIFI:T:$authType;S:$ssid;P:$password;;"
+
+                val writer = QRCodeWriter()
+                val bitMatrix = writer.encode(wifiString, BarcodeFormat.QR_CODE, 512, 512)
+                bitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.RGB_565)
+                for (x in 0 until 512) {
+                    for (y in 0 until 512) {
+                        bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
                     }
-                    imageViewQR.setImageBitmap(bitmap)
-                    HistoriqueService.addHistorique(Historique(bitmap,TypeHistorique.GENERER,wifiString))
-            }else {
-                Toast.makeText(requireContext(), "vous devez remplir les champs", Toast.LENGTH_LONG)
-                    .show()
+                }
+                imageViewQR.setImageBitmap(bitmap)
+                HistoriqueService.addHistorique(Historique(bitmap, TypeHistorique.GENERER, wifiString))
+            } else {
+                Toast.makeText(requireContext(), "vous devez remplir les champs", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
         }
+
         enregistrer.setOnClickListener {
             saveQRCodeToGallery(bitmap, editTextSSID.text.toString(), requireContext())
         }
+
         partager.setOnClickListener {
-            shareBitmapAndText(requireContext(),wifiString)
+            shareBitmapAndText(requireContext(), wifiString)
         }
     }
 
+    /**
+     * Ajuste la taille de la boîte de dialogue lors du démarrage.
+     */
     override fun onStart() {
         super.onStart()
         dialog?.window?.apply {

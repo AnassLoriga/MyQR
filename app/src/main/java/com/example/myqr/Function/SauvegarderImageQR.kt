@@ -19,6 +19,13 @@ import com.google.zxing.qrcode.QRCodeWriter
 import java.io.File
 import java.io.OutputStream
 
+/**
+ * Enregistre un QR code sous forme d'image dans la galerie de l'appareil.
+ *
+ * @param bitmap L'image du QR code à enregistrer.
+ * @param fileName Le nom du fichier sans extension.
+ * @param context Le contexte de l'application pour accéder aux ressources système.
+ */
 fun saveQRCodeToGallery(bitmap: Bitmap, fileName: String, context: Context) {
     val contentValues = ContentValues().apply {
         put(MediaStore.MediaColumns.DISPLAY_NAME, "$fileName.png")
@@ -45,16 +52,37 @@ fun saveQRCodeToGallery(bitmap: Bitmap, fileName: String, context: Context) {
         Toast.makeText(context, "Impossible d'accéder à la galerie", Toast.LENGTH_SHORT).show()
     }
 }
+
+/**
+ * Masque le clavier virtuel à partir d'une vue donnée.
+ *
+ * @param context Le contexte de l'application.
+ * @param view La vue actuellement focalisée.
+ */
 fun hideKeyboard(context: Context, view: View) {
     val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
-fun setupSelection(position:Int,list:List<TextView>) {
+
+/**
+ * Met à jour la sélection visuelle d'une liste de boutons de type `TextView`.
+ *
+ * @param position L'index de l'élément sélectionné dans la liste.
+ * @param list La liste des `TextView` à gérer.
+ */
+fun setupSelection(position: Int, list: List<TextView>) {
     val clickBtn = list[position]
     list.forEach { it.setBackgroundResource(R.drawable.toggle_unselected) }
     clickBtn.setBackgroundResource(R.drawable.toggle_selected)
 }
- fun shareBitmapAndText(context: android.content.Context, text: String) {
+
+/**
+ * Génère un QR code à partir d'un texte et le partage avec l'image correspondante.
+ *
+ * @param context Le contexte de l'application.
+ * @param text Le texte à encoder dans le QR code.
+ */
+fun shareBitmapAndText(context: Context, text: String) {
     val writer = QRCodeWriter()
     val bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 512, 512)
     val bitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888)
@@ -96,4 +124,3 @@ fun setupSelection(position:Int,list:List<TextView>) {
 
     context.startActivity(Intent.createChooser(shareIntent, "Partager via"))
 }
-

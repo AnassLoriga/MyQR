@@ -21,13 +21,23 @@ import com.example.myqr.Service.HistoriqueService
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
+/**
+ * DialogFragment pour générer un QR Code à partir d'un lien fourni par l'utilisateur.
+ */
 class GenerateDialogLink : DialogFragment() {
     lateinit var bitmap: Bitmap
     lateinit var text:String
+
+    /**
+     * Crée la vue du fragment à partir du layout XML.
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_fragment, container, false)
     }
 
+    /**
+     * Configure les actions des boutons et les interactions avec l'interface utilisateur.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -38,7 +48,7 @@ class GenerateDialogLink : DialogFragment() {
         val enregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
         val partager = view.findViewById<Button>(R.id.btnPartager)
 
-
+        // Génère le QR Code à partir du texte saisi
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
             hideKeyboard(requireContext(),view)
             text = editText.text.toString()
@@ -56,23 +66,30 @@ class GenerateDialogLink : DialogFragment() {
                         }
                     }
                     imageViewQR.setImageBitmap(bitmap)
+                    // Ajoute le QR Code généré à l'historique
                     HistoriqueService.addHistorique(
-                        Historique(bitmap,
-                            TypeHistorique.GENERER,text)
+                        Historique(bitmap, TypeHistorique.GENERER, text)
                     )
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
         }
+
+        // Enregistre le QR Code dans la galerie
         enregistrer.setOnClickListener {
             saveQRCodeToGallery(bitmap, "MyQRCode", requireContext())
         }
+
+        // Partage le QR Code avec le texte associé
         partager.setOnClickListener {
-            shareBitmapAndText(requireContext(),text)
+            shareBitmapAndText(requireContext(), text)
         }
     }
 
+    /**
+     * Configure la taille et l'apparence de la fenêtre du dialog.
+     */
     override fun onStart() {
         super.onStart()
 

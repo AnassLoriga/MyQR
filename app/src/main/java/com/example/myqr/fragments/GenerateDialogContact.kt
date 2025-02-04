@@ -22,13 +22,33 @@ import com.example.myqr.Service.HistoriqueService
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
+/**
+ * Fragment de dialogue permettant de générer un QR code à partir d'un numéro de téléphone.
+ *
+ * Ce fragment offre des fonctionnalités pour :
+ * - Générer un QR code.
+ * - Enregistrer le QR code dans la galerie.
+ * - Partager le QR code avec du texte.
+ */
 class GenerateDialogContact : DialogFragment() {
+
+    /**
+     * Bitmap généré pour le QR code.
+     */
     lateinit var bitmap: Bitmap
-    lateinit var simNumber:String
+
+    /**
+     * Numéro de téléphone saisi par l'utilisateur.
+     */
+    lateinit var simNumber: String
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_fragment, container, false)
     }
 
+    /**
+     * Initialise les composants de l'interface utilisateur et configure les actions des boutons.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -38,41 +58,50 @@ class GenerateDialogContact : DialogFragment() {
         val linearDialog = view.findViewById<LinearLayout>(R.id.linearDialo)
         val partager = view.findViewById<Button>(R.id.btnPartager)
 
-
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
             simNumber = "Tel ${editTextSimNumber.text}"
-            hideKeyboard(requireContext(),view)
+            hideKeyboard(requireContext(), view)
+
             if (simNumber.isNotEmpty()) {
-                    enregistrer.visibility=View.VISIBLE
-                    imageViewQR.visibility = View.VISIBLE
-                    partager.visibility = View.VISIBLE
-                    linearDialog.setBackgroundResource(R.drawable.dialog_background)
-                    val writer = QRCodeWriter()
-                    val bitMatrix = writer.encode(simNumber, BarcodeFormat.QR_CODE, 512, 512)
-                    bitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.RGB_565)
-                    for (x in 0 until 512) {
-                        for (y in 0 until 512) {
-                            bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
-                        }
+                enregistrer.visibility = View.VISIBLE
+                imageViewQR.visibility = View.VISIBLE
+                partager.visibility = View.VISIBLE
+                linearDialog.setBackgroundResource(R.drawable.dialog_background)
+
+                val writer = QRCodeWriter()
+                val bitMatrix = writer.encode(simNumber, BarcodeFormat.QR_CODE, 512, 512)
+                bitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.RGB_565)
+
+                for (x in 0 until 512) {
+                    for (y in 0 until 512) {
+                        bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
                     }
-                    imageViewQR.setImageBitmap(bitmap)
+                }
+
+                imageViewQR.setImageBitmap(bitmap)
+
+                // Ajout de l'entrée dans l'historique
                 HistoriqueService.addHistorique(
-                    Historique(bitmap,
-                        TypeHistorique.GENERER,simNumber)
+                    Historique(bitmap, TypeHistorique.GENERER, simNumber)
                 )
-            }else{
-                Toast.makeText(requireContext(),"vous devez remplir le champs",Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(requireContext(), "Vous devez remplir le champ", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
         }
+
         enregistrer.setOnClickListener {
             saveQRCodeToGallery(bitmap, "MyQRCode", requireContext())
         }
+
         partager.setOnClickListener {
-            shareBitmapAndText(requireContext(),simNumber)
+            shareBitmapAndText(requireContext(), simNumber)
         }
     }
 
+    /**
+     * Configure la taille et l'apparence du dialogue lors de son affichage.
+     */
     override fun onStart() {
         super.onStart()
 
