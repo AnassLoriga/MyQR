@@ -52,5 +52,16 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:visibility="gone" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnPartager"
+        android:layout_width="190dp"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_bg2"
+        android:fontFamily="@font/righteous"
+        android:textSize="25dp"
+        android:text="Partager"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </LinearLayout>
