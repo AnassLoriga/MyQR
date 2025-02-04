@@ -115,14 +115,14 @@ class GenerateDialogContact : DialogFragment() {
         val bitMatrix: BitMatrix = writer.encode(simNumber, BarcodeFormat.QR_CODE, size, size)
 
         // Création d'un Bitmap et d'un Canvas pour dessiner le QR code
-        val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+        val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565)
         val canvas = Canvas(bitmap)
 
-        // Peinture pour le QR code avec une couleur plus douce (gris foncé ou bleu foncé)
+        // Peinture pour le QR code (noir)
         val paint = Paint().apply {
             isAntiAlias = true
             style = Paint.Style.FILL
-            color = Color.parseColor("#333333") // Gris foncé (ou utilisez "#1E3A8A" pour du bleu foncé)
+            color = Color.BLACK
         }
 
         // Peinture pour le fond (blanc)
@@ -136,25 +136,13 @@ class GenerateDialogContact : DialogFragment() {
         val cornerRadius = size / 8f // Détermine l'arrondi des coins
         canvas.drawRoundRect(RectF(0f, 0f, size.toFloat(), size.toFloat()), cornerRadius, cornerRadius, backgroundPaint)
 
-        // Peinture pour l'effet d'ombre légère
-        val shadowPaint = Paint().apply {
-            isAntiAlias = true
-            style = Paint.Style.FILL
-            color = Color.parseColor("#555555") // Ombre plus claire
-        }
-
-        // Dessiner les points du QR code sous forme de cercles pour un effet plus moderne
-        for (x in 0 until size) {
-            for (y in 0 until size) {
-                if (bitMatrix[x, y]) {
-                    // Dessiner une ombre légèrement décalée pour un effet 3D
-                    canvas.drawCircle(x + 1.5f, y + 1.5f, 5f, shadowPaint)
-                    canvas.drawCircle(x.toFloat(), y.toFloat(), 5f, paint) // Dessiner le point principal
-                }
+        // Dessiner les points du QR code sous forme de cercles pour un effet moderne
+        for (x in 0 until 512) {
+            for (y in 0 until 512) {
+                bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
             }
         }
 
         return bitmap
     }
-
 }
