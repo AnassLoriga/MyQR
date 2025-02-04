@@ -17,6 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
+import com.example.myqr.Function.shareBitmapAndText
 import com.example.myqr.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -47,6 +48,7 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
         val passwordTextView: TextView = view.findViewById(R.id.password)
         val actionButton: AppCompatButton = view.findViewById(R.id.action_button)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
+        val partagerButton: AppCompatButton = view.findViewById(R.id.share_button)
 
         // Récupération du résultat scanné
         scannedResult = arguments?.getString("SCANNED_RESULT") ?: "No result"
@@ -54,6 +56,7 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
         if(byteArray != null){
             val bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
             imageViewQR.visibility =View.VISIBLE
+            partagerButton.visibility =View.VISIBLE
             imageViewQR.setImageBitmap(bitmap)
         }
 
@@ -133,6 +136,9 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                 }
             }
         }
+        partagerButton.setOnClickListener{
+            shareBitmapAndText(requireContext(), scannedResult)
+        }
 
         val parentView = view.parent as View
         val bottomSheetBehavior = BottomSheetBehavior.from(parentView)
@@ -146,9 +152,9 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
      * @param result Le texte du QR Code Wi-Fi.
      * @return Une map contenant les informations SSID et mot de passe.
      */
-    private fun parseWiFiDetails(result: String): Map<String, String> {
+    fun parseWiFiDetails(result: String): Map<String, String> {
         val details = mutableMapOf<String, String>()
-        if (result.startsWith("WIFI:", ignoreCase = true)) {
+        if (result.startsWith("WIFI:", ignoreCase = true) && result.isNotEmpty()) {
             val params = result.removePrefix("WIFI:").split(";")
             for (param in params) {
                 val keyValue = param.split(":", limit = 2)

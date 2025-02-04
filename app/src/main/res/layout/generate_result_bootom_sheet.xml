@@ -96,12 +96,27 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/share_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_above="@+id/action_button"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/btn_bg2"
+        android:fontFamily="@font/righteous"
+        android:padding="12dp"
+        android:text="Partager"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/action_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/btn_bg2"
         android:fontFamily="@font/righteous"
         android:padding="12dp"
