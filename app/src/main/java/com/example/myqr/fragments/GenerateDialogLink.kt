@@ -15,6 +15,7 @@ import com.example.myqr.Data.Historique
 import com.example.myqr.Data.TypeHistorique
 import com.example.myqr.Function.hideKeyboard
 import com.example.myqr.Function.saveQRCodeToGallery
+import com.example.myqr.Function.shareBitmapAndText
 import com.example.myqr.R
 import com.example.myqr.Service.HistoriqueService
 import com.google.zxing.BarcodeFormat
@@ -22,6 +23,7 @@ import com.google.zxing.qrcode.QRCodeWriter
 
 class GenerateDialogLink : DialogFragment() {
     lateinit var bitmap: Bitmap
+    lateinit var text:String
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_fragment, container, false)
     }
@@ -34,14 +36,16 @@ class GenerateDialogLink : DialogFragment() {
         editText.hint = "Add Your Link"
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
         val enregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
+        val partager = view.findViewById<Button>(R.id.btnPartager)
 
 
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
             hideKeyboard(requireContext(),view)
-            val text = editText.text.toString()
+            text = editText.text.toString()
             if (text.isNotEmpty()) {
                 imageViewQR.visibility = View.VISIBLE
                 enregistrer.visibility =View.VISIBLE
+                partager.visibility = View.VISIBLE
                 try {
                     val writer = QRCodeWriter()
                     val bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 512, 512)
@@ -63,6 +67,9 @@ class GenerateDialogLink : DialogFragment() {
         }
         enregistrer.setOnClickListener {
             saveQRCodeToGallery(bitmap, "MyQRCode", requireContext())
+        }
+        partager.setOnClickListener {
+            shareBitmapAndText(requireContext(),text)
         }
     }
 

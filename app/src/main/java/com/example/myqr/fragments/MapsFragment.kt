@@ -18,6 +18,7 @@ import com.example.myqr.Data.Historique
 import com.example.myqr.Data.TypeHistorique
 import com.example.myqr.Function.hideKeyboard
 import com.example.myqr.Function.saveQRCodeToGallery
+import com.example.myqr.Function.shareBitmapAndText
 import com.example.myqr.R
 import com.example.myqr.Service.HistoriqueService
 import com.google.zxing.BarcodeFormat
@@ -25,6 +26,7 @@ import com.google.zxing.qrcode.QRCodeWriter
 
 class MapsFragment : DialogFragment() {
     lateinit var bitmap: Bitmap
+    lateinit var text: String
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
@@ -35,6 +37,7 @@ class MapsFragment : DialogFragment() {
         val btnQR = view.findViewById<Button>(R.id.btnGenerateQR)
         val btnenregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
+        val partager = view.findViewById<Button>(R.id.btnPartager)
 
 
         val btnOpenMaps: Button = view.findViewById(R.id.OuvrirGoogleMaps)
@@ -46,6 +49,7 @@ class MapsFragment : DialogFragment() {
             startActivityForResult(mapIntent, 100)
             editText.visibility = View.VISIBLE
             btnQR.visibility = View.VISIBLE
+            partager.visibility = View.VISIBLE
         }
         btnQR.setOnClickListener {
             imageViewQR.visibility = View.VISIBLE
@@ -53,7 +57,7 @@ class MapsFragment : DialogFragment() {
             hideKeyboard(requireContext(),view)
             if (editText.text?.isNotEmpty() == true) {
                 val Location = editText.text.toString().trim()
-                val text = "geo URIs ($Location)"
+                text = "geo URIs ($Location)"
 
                 val writer = QRCodeWriter()
                 val bitMatrix = writer.encode(text, BarcodeFormat.QR_CODE, 512, 512)
@@ -76,6 +80,9 @@ class MapsFragment : DialogFragment() {
         }
         btnenregistrer.setOnClickListener {
             saveQRCodeToGallery(bitmap,"geoLocalisation", requireContext())
+        }
+        partager.setOnClickListener {
+            shareBitmapAndText(requireContext(),text)
         }
     }
     override fun onStart() {

@@ -15,11 +15,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
+import com.example.myqr.Function.shareBitmapAndText
 import com.example.myqr.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
+
 class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
+    lateinit var scannedResult:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +40,7 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
         val passwordTextView: TextView = view.findViewById(R.id.password)
         val actionButton: AppCompatButton = view.findViewById(R.id.action_button)
 
-        val scannedResult = arguments?.getString("SCANNED_RESULT") ?: "No result"
+        scannedResult = arguments?.getString("SCANNED_RESULT") ?: "No result"
 
         when {
             // -----------------------------------------------------------------

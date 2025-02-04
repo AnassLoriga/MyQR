@@ -16,6 +16,7 @@ import com.example.myqr.Data.Historique
 import com.example.myqr.Data.TypeHistorique
 import com.example.myqr.Function.hideKeyboard
 import com.example.myqr.Function.saveQRCodeToGallery
+import com.example.myqr.Function.shareBitmapAndText
 import com.example.myqr.R
 import com.example.myqr.Service.HistoriqueService
 import com.google.zxing.BarcodeFormat
@@ -23,6 +24,7 @@ import com.google.zxing.qrcode.QRCodeWriter
 
 class GenerateDialogContact : DialogFragment() {
     lateinit var bitmap: Bitmap
+    lateinit var simNumber:String
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_fragment, container, false)
     }
@@ -34,14 +36,16 @@ class GenerateDialogContact : DialogFragment() {
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
         val enregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
         val linearDialog = view.findViewById<LinearLayout>(R.id.linearDialo)
+        val partager = view.findViewById<Button>(R.id.btnPartager)
 
 
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
-            val simNumber = "Tel ${editTextSimNumber.text}"
+            simNumber = "Tel ${editTextSimNumber.text}"
             hideKeyboard(requireContext(),view)
             if (simNumber.isNotEmpty()) {
                     enregistrer.visibility=View.VISIBLE
                     imageViewQR.visibility = View.VISIBLE
+                    partager.visibility = View.VISIBLE
                     linearDialog.setBackgroundResource(R.drawable.dialog_background)
                     val writer = QRCodeWriter()
                     val bitMatrix = writer.encode(simNumber, BarcodeFormat.QR_CODE, 512, 512)
@@ -63,6 +67,9 @@ class GenerateDialogContact : DialogFragment() {
         }
         enregistrer.setOnClickListener {
             saveQRCodeToGallery(bitmap, "MyQRCode", requireContext())
+        }
+        partager.setOnClickListener {
+            shareBitmapAndText(requireContext(),simNumber)
         }
     }
 
