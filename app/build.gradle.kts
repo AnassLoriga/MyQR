@@ -43,6 +43,7 @@ android {
 
 dependencies {
     implementation(libs.play.services.maps)
+    testImplementation(libs.junit.jupiter)
     val camerax_version = "1.5.0-alpha03"
     implementation ("com.google.zxing:zxing-parent:3.5.3")
     implementation(libs.androidx.core.ktx)

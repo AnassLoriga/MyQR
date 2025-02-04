@@ -152,9 +152,9 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
      * @param result Le texte du QR Code Wi-Fi.
      * @return Une map contenant les informations SSID et mot de passe.
      */
-    private fun parseWiFiDetails(result: String): Map<String, String> {
+    fun parseWiFiDetails(result: String): Map<String, String> {
         val details = mutableMapOf<String, String>()
-        if (result.startsWith("WIFI:", ignoreCase = true)) {
+        if (result.startsWith("WIFI:", ignoreCase = true) && result.isNotEmpty()) {
             val params = result.removePrefix("WIFI:").split(";")
             for (param in params) {
                 val keyValue = param.split(":", limit = 2)
