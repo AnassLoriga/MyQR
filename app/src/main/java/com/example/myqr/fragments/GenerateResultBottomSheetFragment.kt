@@ -20,7 +20,10 @@ import com.example.myqr.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-
+/**
+ * GenerateResultBottomSheetFragment est une BottomSheetDialogFragment qui affiche le résultat
+ * d'un scan de code QR et permet d'effectuer une action en fonction du type de données détecté.
+ */
 class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
     lateinit var scannedResult:String
 
@@ -30,21 +33,25 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
     ): View? {
         return inflater.inflate(R.layout.generate_result_bootom_sheet, container, false)
     }
-
+    /**
+     * Initialise la vue et gère l'affichage ainsi que les actions en fonction du type de données scannées.
+     */
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Initialisation des vues
         val resultTextView: TextView = view.findViewById(R.id.scan_result)
         val scanTypeTextView: TextView = view.findViewById(R.id.scan_type)
         val ssidTextView: TextView = view.findViewById(R.id.ssid)
         val passwordTextView: TextView = view.findViewById(R.id.password)
         val actionButton: AppCompatButton = view.findViewById(R.id.action_button)
 
+        // Récupération du résultat scanné
         scannedResult = arguments?.getString("SCANNED_RESULT") ?: "No result"
 
         when {
 
-            // wifi qr
+            // Gestion des QR Codes en cas de WIFI
             scannedResult.startsWith("WIFI:", ignoreCase = true) -> {
                 val wifiDetails = parseWiFiDetails(scannedResult)
                 scanTypeTextView.text = "WiFi : "
@@ -69,7 +76,7 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                 }
             }
 
-            // lien
+            // Gestion des QR Codes en cas de siteweb lien
 
             scannedResult.startsWith("http", ignoreCase = true) -> {
                 scanTypeTextView.text = "Link : "
@@ -82,7 +89,7 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                 }
             }
 
-            // tele
+            // Gestion des QR Codes en cas de numero de telephone
             scannedResult.startsWith("tel:", ignoreCase = true) -> {
                 scanTypeTextView.text = "Phone : "
                 resultTextView.text = scannedResult.removePrefix("tel:")
@@ -93,8 +100,8 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                     openPhoneDialer(scannedResult)
                 }
             }
-            // localisation
 
+            // Gestion des QR Codes en cas de Localisation
             scannedResult.startsWith("geo:", ignoreCase = true) -> {
                 scanTypeTextView.text = "Location : "
                 resultTextView.text = scannedResult
@@ -106,7 +113,7 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
                 }
             }
 
-            // text
+            // Gestion des QR Codes en cas d'une text
             else -> {
                 scanTypeTextView.text = "Text : "
                 resultTextView.text = scannedResult
@@ -126,7 +133,11 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
 
-    // wifi data
+    /**
+     * Analyse et extrait les informations du QR Code Wi-Fi.
+     * @param result Le texte du QR Code Wi-Fi.
+     * @return Une map contenant les informations SSID et mot de passe.
+     */
     private fun parseWiFiDetails(result: String): Map<String, String> {
         val details = mutableMapOf<String, String>()
         if (result.startsWith("WIFI:", ignoreCase = true)) {
@@ -142,7 +153,10 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
 
-    // connect to wifi
+    /**
+     * fonction pour connecter à un réseau Wi-Fi en utilisant les détails fournis.
+     * @param wifiDetails Une map contenant SSID et mot de passe du réseau.
+     */
     private fun connectToWifi(wifiDetails: Map<String, String>) {
         val ssid = wifiDetails["S"] ?: return
         val password = wifiDetails["P"] ?: ""
@@ -218,23 +232,38 @@ class GenerateResultBottomSheetFragment : BottomSheetDialogFragment() {
         }
     }
 
+    /**
+     * fonction pour Ouvrir un lien dans le navigateur.
+     * @param link L'URL à ouvrir.
+     */
     private fun openLink(link: String) {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
         startActivity(browserIntent)
     }
 
+    /**
+     * fonction pour Ouvrir le composeur téléphonique avec le numéro fourni.
+     * @param phoneNumber Le numéro de téléphone à composer.
+     */
     private fun openPhoneDialer(phoneNumber: String) {
         val phoneNumberWithoutPrefix = phoneNumber.removePrefix("tel:")
         val phoneIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumberWithoutPrefix"))
         startActivity(phoneIntent)
     }
 
+    /**
+     * fonction pour Ouvre l'application Google Maps à une position spécifique.
+     * @param geoUri L'URI géographique.
+     */
     private fun openLocation(geoUri: String) {
         val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
         mapIntent.setPackage("com.google.android.apps.maps")
         startActivity(mapIntent)
     }
-
+    /**
+     * fonction pour Copie un texte dans le presse-papiers.
+     * @param text Le texte à copier.
+     */
     private fun copyToClipboard(text: String) {
         val clipboardManager =
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager

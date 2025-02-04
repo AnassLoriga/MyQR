@@ -57,7 +57,7 @@ class GenerateDialogContact : DialogFragment() {
                     }
                     imageViewQR.setImageBitmap(bitmap)
                 HistoriqueService.addHistorique(
-                    Historique(bitmap,
+                    Historique(R.drawable.ic_contact,bitmap,
                         TypeHistorique.GENERER,simNumber)
                 )
             }else{

@@ -57,7 +57,7 @@ class GenerateDialogLink : DialogFragment() {
                     }
                     imageViewQR.setImageBitmap(bitmap)
                     HistoriqueService.addHistorique(
-                        Historique(bitmap,
+                        Historique(R.drawable.ic_link,bitmap,
                             TypeHistorique.GENERER,text)
                     )
                 } catch (e: Exception) {

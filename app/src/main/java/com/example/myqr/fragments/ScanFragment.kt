@@ -136,7 +136,7 @@ class ScanFragment : Fragment() {
             val barcodeEncoder = BarcodeEncoder()
             val bitmap: Bitmap = barcodeEncoder.encodeBitmap(scannedText, BarcodeFormat.QR_CODE, 400, 400)
             HistoriqueService.addHistorique(
-                Historique(bitmap, TypeHistorique.SCANNER, scannedText)
+                Historique(R.drawable.baseline_qr_code_scanner_24,bitmap, TypeHistorique.SCANNER, scannedText)
             )
             val bottomSheet = GenerateResultBottomSheetFragment()
             val args = Bundle()

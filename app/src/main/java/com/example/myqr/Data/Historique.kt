@@ -1,6 +1,7 @@
 package com.example.myqr.Data
 
 import android.graphics.Bitmap
+import com.example.myqr.R
 
 /**
  * Classe représentant un historique de scan de QR code.
@@ -11,6 +12,7 @@ import android.graphics.Bitmap
  *
  */
 data class Historique(
+    val logo:Int = R.drawable.ic_text,
     val imageQR: Bitmap,
     val type: TypeHistorique, //Utilissation de l'Enum class TypeHistorique
     val contenu: String

@@ -69,7 +69,7 @@ class MapsFragment : DialogFragment() {
                 }
                 imageViewQR.setImageBitmap(bitmap)
                 HistoriqueService.addHistorique(
-                    Historique(bitmap,
+                    Historique(R.drawable.ic_location,bitmap,
                         TypeHistorique.GENERER,text)
                 )
             }else {
