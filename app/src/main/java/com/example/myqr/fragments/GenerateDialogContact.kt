@@ -82,7 +82,7 @@ class GenerateDialogContact : DialogFragment() {
 
                 // Ajout de l'entrée dans l'historique
                 HistoriqueService.addHistorique(
-                    Historique(bitmap, TypeHistorique.GENERER, simNumber)
+                    Historique(R.drawable.ic_contact,bitmap, TypeHistorique.GENERER, simNumber)
                 )
             } else {
                 Toast.makeText(requireContext(), "Vous devez remplir le champ", Toast.LENGTH_LONG).show()

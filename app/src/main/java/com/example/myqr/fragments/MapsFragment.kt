@@ -84,7 +84,7 @@ class MapsFragment : DialogFragment() {
                     }
                 }
                 imageViewQR.setImageBitmap(bitmap)
-                HistoriqueService.addHistorique(Historique(bitmap, TypeHistorique.GENERER, text))
+                HistoriqueService.addHistorique(Historique(R.drawable.ic_location,bitmap, TypeHistorique.GENERER, text))
             } else {
                 Toast.makeText(requireContext(), "vous devez remplir les champs", Toast.LENGTH_LONG).show()
                 return@setOnClickListener

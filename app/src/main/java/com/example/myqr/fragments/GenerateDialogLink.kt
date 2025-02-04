@@ -68,7 +68,7 @@ class GenerateDialogLink : DialogFragment() {
                     imageViewQR.setImageBitmap(bitmap)
                     // Ajoute le QR Code généré à l'historique
                     HistoriqueService.addHistorique(
-                        Historique(bitmap, TypeHistorique.GENERER, text)
+                        Historique(R.drawable.ic_link,bitmap, TypeHistorique.GENERER, text)
                     )
                 } catch (e: Exception) {
                     e.printStackTrace()

@@ -71,7 +71,7 @@ class GenerateDialogWifi : DialogFragment() {
                     }
                 }
                 imageViewQR.setImageBitmap(bitmap)
-                HistoriqueService.addHistorique(Historique(bitmap, TypeHistorique.GENERER, wifiString))
+                HistoriqueService.addHistorique(Historique(R.drawable.ic_wifi,bitmap, TypeHistorique.GENERER, wifiString))
             } else {
                 Toast.makeText(requireContext(), "vous devez remplir les champs", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
