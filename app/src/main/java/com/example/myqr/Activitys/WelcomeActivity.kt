@@ -26,6 +26,7 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.welcome_layout)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.welcome)
 
         btnGo = findViewById(R.id.btn_go)
         btnGo.setOnClickListener {

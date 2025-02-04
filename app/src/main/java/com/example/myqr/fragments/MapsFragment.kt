@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
@@ -44,9 +45,9 @@ class MapsFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val editText = view.findViewById<EditText>(R.id.editText)
         val btnQR = view.findViewById<Button>(R.id.btnGenerateQR)
-        val btnenregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
+        val btnenregistrer = view.findViewById<ImageButton>(R.id.btnEnregistrer)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
-        val partager = view.findViewById<Button>(R.id.btnPartager)
+        val partager = view.findViewById<ImageButton>(R.id.btnPartager)
         val btnOpenMaps: Button = view.findViewById(R.id.OuvrirGoogleMaps)
 
         /**

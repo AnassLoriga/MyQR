@@ -2,5 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="btn_color"></color>
+    <color name="welcome">#014F4F</color>
+    <color name="Colormenu">#008181</color>
 </resources>

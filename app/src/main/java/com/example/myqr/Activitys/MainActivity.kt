@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.myqr.R
 import com.example.myqr.fragments.GenerateFragment
 import com.example.myqr.fragments.ScanFragment
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         val generate = findViewById<LinearLayout>(R.id.generate)
         val scan = findViewById<LinearLayout>(R.id.scan)
         val historique = findViewById<LinearLayout>(R.id.historique)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.Colormenu)
 
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame,ScanFragment())

@@ -17,7 +17,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:hint="Add Your Contact"
-        android:textColorHint="@color/white"
+        android:textColorHint="#C4FBFBFB"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:inputType="phone"
@@ -36,7 +36,6 @@
         />
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

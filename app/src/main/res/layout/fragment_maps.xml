@@ -10,12 +10,12 @@ android:padding="16dp"
 android:gravity="center">
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/OuvrirGoogleMaps"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/btn_bg2"
+        android:background="@drawable/edittext_bg"
         android:fontFamily="@font/righteous"
         android:textSize="25dp"
-        android:text="Ouvrir google maps"
+        android:text="Open google maps"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginTop="15dp"/>
@@ -50,8 +50,8 @@ android:gravity="center">
 
 <ImageView
     android:id="@+id/imageViewQR"
-    android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
     android:visibility="gone"/>
 <LinearLayout
     android:layout_width="match_parent"
@@ -59,37 +59,44 @@ android:gravity="center">
     android:layout_marginTop="15dp"
     android:orientation="horizontal"
     android:gravity="center">
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnAnuller"
-        android:layout_width="190dp"
+        android:layout_width="120dp"
         android:layout_height="60dp"
+        android:src="@drawable/cancel"
         android:background="@drawable/btn_bg2"
         android:fontFamily="@font/righteous"
         android:textSize="25dp"
         android:text="Annuler"
         android:textColor="@color/white"
-        android:textStyle="bold" />
-    <androidx.appcompat.widget.AppCompatButton
+        android:textStyle="bold"
+        />
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnEnregistrer"
-        android:layout_width="190dp"
+        android:layout_width="120dp"
         android:layout_height="60dp"
+        android:src="@drawable/save"
         android:background="@drawable/btn_bg2"
         android:fontFamily="@font/righteous"
         android:textSize="25dp"
         android:text="Enregistrer"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:visibility="gone" />
-</LinearLayout>
-    <androidx.appcompat.widget.AppCompatButton
+        android:visibility="gone"
+         />
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnPartager"
-        android:layout_width="190dp"
+        android:layout_width="120dp"
         android:layout_height="60dp"
+        android:src="@drawable/share"
         android:background="@drawable/btn_bg2"
         android:fontFamily="@font/righteous"
         android:textSize="25dp"
         android:text="Partager"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:visibility="gone"
+        />
+</LinearLayout>
+
 </LinearLayout>

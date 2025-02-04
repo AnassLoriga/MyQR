@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
@@ -45,8 +46,8 @@ class GenerateDialogWifi : DialogFragment() {
         val editTextPassword = view.findViewById<EditText>(R.id.editTextPassword)
         val editTextAuthType = view.findViewById<EditText>(R.id.editTextAuthType)
         val imageViewQR = view.findViewById<ImageView>(R.id.imageViewQR)
-        val enregistrer = view.findViewById<Button>(R.id.btnEnregistrer)
-        val partager = view.findViewById<Button>(R.id.btnPartager)
+        val enregistrer = view.findViewById<ImageButton>(R.id.btnEnregistrer)
+        val partager = view.findViewById<ImageButton>(R.id.btnPartager)
 
         view.findViewById<Button>(R.id.btnGenerateQR).setOnClickListener {
             hideKeyboard(requireContext(), view)
