@@ -1,5 +1,6 @@
 package com.example.myqr.adapters
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.example.myqr.Data.Historique
 import com.example.myqr.Data.TypeHistorique
 import com.example.myqr.R
 import com.example.myqr.fragments.GenerateResultBottomSheetFragment
+import java.io.ByteArrayOutputStream
 
 class HistoriqueAdapter(val historiques: List<Historique>,
      val supportFragmentmanager:FragmentManager
@@ -35,6 +37,10 @@ class HistoriqueAdapter(val historiques: List<Historique>,
         }else{
             holder.typeHistorique.text = "Code Scanner"
         }
+        val bitmap=historique.imageQR
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray = stream.toByteArray()
 
         holder.imageQR.setImageResource(historique.logo)
         holder.contenu.text = historique.contenu
@@ -42,6 +48,7 @@ class HistoriqueAdapter(val historiques: List<Historique>,
             val bottomSheet = GenerateResultBottomSheetFragment()
             val args = Bundle()
             args.putString("SCANNED_RESULT", historique.contenu)
+            args.putByteArray("bitmap",byteArray)
             bottomSheet.arguments = args
             bottomSheet.show(supportFragmentmanager, "GenerateResultBottomSheetFragment")
         }
